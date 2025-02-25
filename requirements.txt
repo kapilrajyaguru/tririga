@@ -1,5 +1,2 @@
-random
-requests
-json
-logging
-gunicorn
+requests==2.31.0
+gunicorn==20.1.0

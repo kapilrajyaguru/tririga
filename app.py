@@ -8,26 +8,13 @@
 #
 # random.randint(0, 2)
 
-import sys
-import random
+from fastapi import FastAPI, Request
 import requests
 import json
 import logging
-from flask import Flask, request, jsonify
 
-app = Flask(__name__)
 
-@app.route('/api', methods=['POST'])
-def api():
-    try:
-        diction = request.get_json()
-        response = main(diction)
-        return jsonify(response)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+app = FastAPI()
 
 
 def main(diction):
@@ -147,3 +134,9 @@ def main(diction):
         return response.json()
     else:
         return { 'message': 'INVALID'}
+
+@app.post("/function")
+async def handle_request(request: Request):
+    diction = await request.json()
+    result = main(diction)
+    return result

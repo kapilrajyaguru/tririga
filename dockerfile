@@ -10,8 +10,8 @@ COPY . /app
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port used by the Flask app
+# Expose the port FastAPI will run on
 EXPOSE 8080
 
-# Start the application using Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "main:app"]
+# Start the application using Uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]

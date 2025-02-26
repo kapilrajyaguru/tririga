@@ -13,9 +13,21 @@ import random
 import requests
 import json
 import logging
+from flask import Flask, request, jsonify
 
+app = Flask(__name__)
 
+@app.route('/api', methods=['POST'])
+def api():
+    try:
+        diction = request.get_json()
+        response = main(diction)
+        return jsonify(response)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
 
 
 def main(diction):
